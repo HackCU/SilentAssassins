@@ -2,6 +2,10 @@ import bottle # Web server
 from bottle import run, route, request
 import json
 
+import Scrapper
+import Analysis
+import Generator
+
 @route('/')
 def index():
     """ Display welcome & instruction messages """
@@ -11,36 +15,31 @@ def index():
 	   <li>http://localhost:8080/up?URL=http://url_to_file.txt</li></ul>"
 
 @route('/up')
-def uppercase():
-    """ 
-    Convert given text to uppercase
-    (as a plain argument, or from a textfile's URL)
-    Returns an indented JSON structure
-    """
+def uppercase():  
+    url   = request.GET.get('s'  , default=None)
     
-    # Store HTTP GET arguments
-    plain_text   = request.GET.get('s'  , default=None)
-    textfile_url = request.GET.get('URL', default=None)
+    if url is not None:
+        #url = "http://www.apple.com/legal/internet-services/itunes/us/terms.html"         
+        obj = Scrapper.scrap(url);
+        
+        obj = json.dumps({'head':{'name':'privacy','p':{'name':'first para in privacy'},'p':{'name':'second para in privacy'} },
+         'head':{'name':'taxes','p':{'name':'first para in taxes'},'p':{'name':'second para in taxes'} },
+         'head':{'name':'indemnity','p':{'name':'first para in indemnity'},'p':{'name':'second para in indemnity'} },
+        })
+        obj = Analysis.analysis(obj)
 
-    # Execute WebService specific task
-    # here, converting a string to upper-casing
-    if plain_text is not None:
-        return json.dumps(
-            {'input' : plain_text, 
-             'result': plain_text.upper()
-             },
-            indent=4)
-
-    elif textfile_url is not None:
-        textfile = urlopen(textfile_url).read()
-        return json.dumps(
-            {'input' : textfile,
-             'output': '\n'.join([line.upper() for line in textfile.split('\n')]) 
-             },
-            indent=4)
-
+        obj = json.dumps({'head':{'name':'privacy','classify':'computer software','p':{'name':'first para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},'p':{'name':'second para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']} },
+         'head':{'name':'taxes','classify':'computer software','p':{'name':'first para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},'p':{'name':'second para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']} }
+        })
+                                
+        obj = Generator.generate(obj) 
+            
+        #obj = {
+        #    'input' : url, 
+        #    'result': url.upper()
+        #}                                
+        return json.dumps(obj,indent=4)
 
 if __name__ == '__main__':        
-    # To run the server, type-in $ python server.py
-    bottle.debug(True) # display traceback 
+    bottle.debug(True)
     run(host='localhost', port=8000, reloader=True) 
