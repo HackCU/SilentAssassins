@@ -22,24 +22,19 @@ def uppercase():
         #url = "http://www.apple.com/legal/internet-services/itunes/us/terms.html"         
         obj = Scrapper.scrap(url);
         
-        obj = json.dumps({'head':{'name':'privacy','p':{'name':'first para in privacy'},'p':{'name':'second para in privacy'} },
-         'head':{'name':'taxes','p':{'name':'first para in taxes'},'p':{'name':'second para in taxes'} },
-         'head':{'name':'indemnity','p':{'name':'first para in indemnity'},'p':{'name':'second para in indemnity'} },
+        obj = json.dumps({'privacy':{'p':[{'name':'first para in privacy'},{'name':'second para in privacy'}] },
+         'taxes':{'p':[{'name':'first para in taxes'},{'name':'second para in taxes'}] }
         })
         obj = Analysis.analysis(obj)
 
-        obj = json.dumps({'head':{'name':'privacy','classify':'computer software','p':{'name':'first para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},'p':{'name':'second para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']} },
-         'head':{'name':'taxes','classify':'computer software','p':{'name':'first para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},'p':{'name':'second para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']} }
+        obj = json.dumps({'privacy':{'classify':'computer software','p':[{'name':'first para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},{'name':'second para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']}] },
+         'taxes':{'classify':'computer software','p':[{'name':'first para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},{'name':'second para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']}] }
         })
                                 
         obj = Generator.generate(obj) 
-            
-        #obj = {
-        #    'input' : url, 
-        #    'result': url.upper()
-        #}                                
+                               
         return json.dumps(obj,indent=4)
 
 if __name__ == '__main__':        
     bottle.debug(True)
-    run(host='localhost', port=8000, reloader=True) 
+    run(host='localhost', port=8000, reloader=True)
