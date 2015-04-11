@@ -15,8 +15,9 @@ class Analysis:
         
         final_hash = {}
         names = []
+        input = obj
         for n in input.keys():
-		    names.append(n)
+	   names.append(n)
         for i in names:
     		para_text=""
     		paras_list = []

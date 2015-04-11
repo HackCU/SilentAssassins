@@ -20,18 +20,19 @@ def uppercase():
     
     if url is not None:
         #url = "http://www.apple.com/legal/internet-services/itunes/us/terms.html"         
-        obj = Scrapper.scrap(url);
-        
-        obj = json.dumps({'privacy':{'p':[{'name':'first para in privacy'},{'name':'second para in privacy'}] },
-         'taxes':{'p':[{'name':'first para in taxes'},{'name':'second para in taxes'}] }
-        })
-        obj = Analysis.analysis(obj)
+        sc = Scrapper.Scrapper()
+        obj = sc.scrap(url);
+        #print obj
+        #obj = json.dumps({'privacy':{'p':[{'name':'first para in privacy'},{'name':'second para in privacy'}] },
+        # 'taxes':{'p':[{'name':'first para in taxes'},{'name':'second para in taxes'}] }
+        #})
+        obj = Analysis.Analysis().analysis(obj)
 
-        obj = json.dumps({'privacy':{'classify':'computer software','p':[{'name':'first para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},{'name':'second para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']}] },
-         'taxes':{'classify':'computer software','p':[{'name':'first para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},{'name':'second para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']}] }
-        })
+        #obj = json.dumps({'privacy':{'classify':'computer software','p':[{'name':'first para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},{'name':'second para in privacy','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']}] },
+        # 'taxes':{'classify':'computer software','p':[{'name':'first para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},{'name':'second para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']}] }
+        #})
                                 
-        obj = Generator.generate(obj) 
+        obj = Generator.Generator().generate(obj) 
                                
         return json.dumps(obj,indent=4)
 

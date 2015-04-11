@@ -16,28 +16,34 @@ class Generator:
        
     def generate(self, obj):
         categories = {}
-        obj = json.loads(obj)
+        
         for key,value in obj.iteritems():
             if(value['classify'] not in categories):
                 categories[value['classify']] = []
             categories[value['classify']].append({'key':key,'value':value})     
-        final = {} 
+        final = {}
+        final['name'] = "Sample Title" 
+        final["size"] = len(final["name"])*20000
         final['children'] = []  
         for level in categories:
             final['children'].append({ 'name': level,"children":self.getChilds(categories[level])})
+        
+        json.dump(final, open("test1111.json","w"))
         return final
-                        
+                
     def getChilds(self, level):
         children = [] 
         for eachChild in level:
             child = {}
             child["name"] = eachChild["key"]
+            child["size"] = len(child["name"])*20000
             child["children"] = []
             for eachP in eachChild['value']['p']:
                 node = {}
                 node["name"] = eachP['name']
+                node["size"] = len(node["name"])*20000
                 node["tags"] = eachP['tags']                
-                node["summarizer"] = eachP['summarizer']
+                #node["summarizer"] = eachP['summarizer']
                 child["children"].append(node)    
             children.append(child)
         return children

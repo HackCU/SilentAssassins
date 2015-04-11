@@ -11,6 +11,9 @@ from bs4 import BeautifulSoup
 
 class Scrapper:
 
+    def __init__(self):
+        None
+        
     def scrap(self,url):
         r =requests.get(url)
         soup=BeautifulSoup(r.content)
@@ -30,7 +33,7 @@ class Scrapper:
             print i
             obj[strNew[i]] = {'p':[{'name':strNew[i+1]}] }        
             i = i+2
-        print obj
+        #print obj
         return obj        
         
 #url = "http://www.hasbro.com/en-us/terms"
