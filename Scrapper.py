@@ -47,7 +47,7 @@ class Scrapper:
         
     def scrap(self,url):
         
-        self.client = textapi.Client("bc4d5d94", "6848fa2a1f64be9454e2db7923c17b19")
+        self.client = textapi.Client("bf04b8ea", "0652571659f707718638fef6d316b8f3")
         #Links tested on
         #html_doc =requests.get('http://www.colorado.edu/controller/approving-officials-procedural-statement')
         #html_doc=requests.get('http://www.hasbro.com/en-us/terms')
