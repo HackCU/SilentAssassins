@@ -47,7 +47,7 @@ class Scrapper:
         
     def scrap(self,url):
         
-        self.client = textapi.Client("a3d83921", "e6f553b78d258d7d17b7037bf5e94425")
+        self.client = textapi.Client("69285ee3", "cd2036c898a03bcc45fd3b4178c5c0d8")
         #Links tested on
         #html_doc =requests.get('http://www.colorado.edu/controller/approving-officials-procedural-statement')
         #html_doc=requests.get('http://www.hasbro.com/en-us/terms')
@@ -58,6 +58,7 @@ class Scrapper:
         html_doc= html_doc.content  # get all content of webpage
         html_doc=''.join([i if ord(i) < 128 else '' for i in html_doc]) # remove utf-8
         soup = BeautifulSoup(html_doc) # reform webpage
+        title = soup.title.string 
         para=soup.find_all("p")
         paralist=[]
         para=str(para).replace("[","").replace("]","").replace("u'","")
@@ -88,9 +89,15 @@ class Scrapper:
                     hashtags = self.client.Hashtags({"text": each})   
                     obj[hashtags['hashtags'][0]] = {'p':[{"name":each}]}
                 except:
+                    print "exceptioneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
                     None
         print obj
-        return obj
+        newObj = {}
+        newObj['title'] = title
+        newObj['obj'] = obj 
+        print "SCRAPPER"
+        print newObj
+        return newObj
             
 #url = "http://www.hasbro.com/en-us/terms"
 #ob = Scrapper()

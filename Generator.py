@@ -14,7 +14,8 @@ import json
 
 class Generator:
        
-    def generate(self, obj):
+    def generate(self, obj,title):
+        
         categories = {}
         
         for key,value in obj.iteritems():
@@ -22,7 +23,7 @@ class Generator:
                 categories[value['classify']] = []
             categories[value['classify']].append({'key':key,'value':value})     
         final = {}
-        final['name'] = "Sample Title" 
+        final['name'] = title 
         final["size"] = len(final["name"])*20000
         final['children'] = []  
         for level in categories:

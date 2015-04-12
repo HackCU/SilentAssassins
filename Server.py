@@ -22,6 +22,8 @@ def uppercase():
         #url = "http://www.apple.com/legal/internet-services/itunes/us/terms.html"         
         sc = Scrapper.Scrapper()
         obj = sc.scrap(url);
+        title = obj['title']
+        obj = obj['obj']
         #print obj
         #obj = json.dumps({'privacy':{'p':[{'name':'first para in privacy'},{'name':'second para in privacy'}] },
         # 'taxes':{'p':[{'name':'first para in taxes'},{'name':'second para in taxes'}] }
@@ -32,7 +34,7 @@ def uppercase():
         # 'taxes':{'classify':'computer software','p':[{'name':'first para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']},{'name':'second para in taxes','summarizer':'example of summarized paragraph','tags':['tag1','tag2','tag3']}] }
         #})
                                 
-        obj = Generator.Generator().generate(obj) 
+        obj = Generator.Generator().generate(obj,title) 
                                
         return json.dumps(obj,indent=4)
 

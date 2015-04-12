@@ -9,7 +9,7 @@ import json
 
 class Analysis:
     def __init__(self):
-       self.client = textapi.Client("a3d83921", "e6f553b78d258d7d17b7037bf5e94425")
+       self.client = textapi.Client("69285ee3", "cd2036c898a03bcc45fd3b4178c5c0d8")
  
     def analysis(self, obj):
         
@@ -41,8 +41,9 @@ class Analysis:
 	        final_hash[i]["classify"]=classify['categories'][0]['label']
 	        final_hash[i]['p'] = paras_list
 
-	#print final_hash
-        return final_hash
+	return final_hash
+
+        
         #summarize = self.client.Summarize({"text": para_text,"title":"policy"})
 
 #a = Analysis()
