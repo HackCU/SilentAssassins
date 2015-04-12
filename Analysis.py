@@ -6,10 +6,11 @@
 
 from aylienapiclient import textapi
 import json
+import unirest
 
 class Analysis:
     def __init__(self):
-       self.client = textapi.Client("69285ee3", "cd2036c898a03bcc45fd3b4178c5c0d8")
+       self.client = textapi.Client("bc4d5d94", "6848fa2a1f64be9454e2db7923c17b19")
  
     def analysis(self, obj):
         
@@ -30,6 +31,20 @@ class Analysis:
     			par_hash = {}
     			par_hash["name"] = p['name']
 	        	par_hash["tags"] = hashtags['hashtags']
+	        	response = unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer",headers={"X-Mashape-Authorization": "a8lZxBeK59mshqWph5hBJy8redFVp1piq4cjsnZmW1xne3EqBK","Content-Type": "application/json"}, params="{\"url\":\"\",\"text\":\""+p['name']+"\",\"sentnum\":2}");
+                        par_hash["tags"] = hashtags['hashtags']
+                        
+                        arr = []
+                        rspb = response.body
+                        if 'description' in rspb:
+                            arr.append(rspb['description'])
+                        if 'sentences' in rspb:
+                            for each in rspb['sentences']: 
+                                print "----------------"
+                                print each                           
+                                arr.append(each)
+                        par_hash["summary"] = arr
+	        
 	        	paras_list.append(par_hash)
 
 	        for ind_para in paras_list:

@@ -47,7 +47,7 @@ class Scrapper:
         
     def scrap(self,url):
         
-        self.client = textapi.Client("69285ee3", "cd2036c898a03bcc45fd3b4178c5c0d8")
+        self.client = textapi.Client("bc4d5d94", "6848fa2a1f64be9454e2db7923c17b19")
         #Links tested on
         #html_doc =requests.get('http://www.colorado.edu/controller/approving-officials-procedural-statement')
         #html_doc=requests.get('http://www.hasbro.com/en-us/terms')
@@ -58,8 +58,11 @@ class Scrapper:
         html_doc= html_doc.content  # get all content of webpage
         html_doc=''.join([i if ord(i) < 128 else '' for i in html_doc]) # remove utf-8
         soup = BeautifulSoup(html_doc) # reform webpage
-        title = soup.title.string 
-        para=soup.find_all("p")
+        try:
+	    title = soup.title.string 
+        except:
+	    title = url
+	para=soup.find_all("p")
         paralist=[]
         para=str(para).replace("[","").replace("]","").replace("u'","")
         para=BeautifulSoup(para)

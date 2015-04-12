@@ -29,7 +29,7 @@ class Generator:
         for level in categories:
             final['children'].append({ 'name': level,"children":self.getChilds(categories[level])})
         
-        json.dump(final, open("test1111.json","w"))
+        #json.dump(final, open("test1111.json","w"))
         return final
                 
     def getChilds(self, level):
@@ -44,7 +44,7 @@ class Generator:
                 node["name"] = eachP['name']
                 node["size"] = len(node["name"])*20000
                 node["tags"] = eachP['tags']                
-                #node["summarizer"] = eachP['summarizer']
+                node["summary"] = eachP['summary']
                 child["children"].append(node)    
             children.append(child)
         return children
