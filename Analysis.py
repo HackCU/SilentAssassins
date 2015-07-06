@@ -7,10 +7,11 @@
 from aylienapiclient import textapi
 import json
 import unirest
+import settings
 
 class Analysis:
     def __init__(self):
-       self.client = textapi.Client("0ff1372a", "5ac074d99580a5c5169698c7f7c1d27a")
+       self.client = textapi.Client(settings.apiid, settings.apikey)
  
     def analysis(self, obj):
         
@@ -27,12 +28,17 @@ class Analysis:
     		length = len(list_para)
     		for j in range(0,length):
     			p = list_para[j]
+    			
     			hashtags = self.client.Hashtags({"text": p['name']})
     			par_hash = {}
     			par_hash["name"] = p['name']
 	        	par_hash["tags"] = hashtags['hashtags']
-	        	response = unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer",headers={"X-Mashape-Authorization": "a8lZxBeK59mshqWph5hBJy8redFVp1piq4cjsnZmW1xne3EqBK","Content-Type": "application/json"}, params="{\"url\":\"\",\"text\":\""+p['name']+"\",\"sentnum\":2}");
-                        par_hash["tags"] = hashtags['hashtags']
+	        	par_hash["tags"] = hashtags['hashtags']
+                        
+                        par_hash = {}
+    			par_hash["name"] = p['name']
+                        par_hash["tags"] = ['some', 'dummy', 'tags']
+                        response = unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer",headers={"X-Mashape-Authorization": "a8lZxBeK59mshqWph5hBJy8redFVp1piq4cjsnZmW1xne3EqBK","Content-Type": "application/json"}, params="{\"url\":\"\",\"text\":\""+p['name']+"\",\"sentnum\":2}");
                         
                         arr = []
                         rspb = response.body

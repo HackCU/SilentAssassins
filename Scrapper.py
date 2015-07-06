@@ -10,6 +10,7 @@ import json
 from bs4 import BeautifulSoup
 import codecs
 from aylienapiclient import textapi
+import settings
 
 class Scrapper:
 
@@ -47,7 +48,7 @@ class Scrapper:
         
     def scrap(self,url):
         
-        self.client = textapi.Client("0ff1372a", "5ac074d99580a5c5169698c7f7c1d27a")
+        self.client = textapi.Client(settings.apiid, settings.apikey)
         #Links tested on
         #html_doc =requests.get('http://www.colorado.edu/controller/approving-officials-procedural-statement')
         #html_doc=requests.get('http://www.hasbro.com/en-us/terms')
